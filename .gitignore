@@ -1,0 +1,5 @@
+/src/build/
+/src/test/build/
+/.vscode/
+/tmp.txt
+/.DS_Store

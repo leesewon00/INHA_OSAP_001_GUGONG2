@@ -33,33 +33,33 @@
 
 template <typename T>
 class AVLTree {
- public:
+public:
   // node를 root로 가지는 트리가 비어있는지 여부 반환
-  bool IsEmpty(Node<T> *node);
+  bool IsEmpty(Node<T>* node);
   // node를 root로 가지는 트리의 원소 수 반환
-  int GetSize(Node<T> *node);
+  int GetSize(Node<T>* node);
   // node를 root로 가지는 트리의 높이 반환
-  int GetHeight(Node<T> *node);
+  int GetHeight(Node<T>* node);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합 반환
-  int FindNode(Node<T> *node, T target);
+  int FindNode(Node<T>* node, T target);
   // node를 root로 가지는 트리에 새로운 target 노드를 삽입하고
   // 깊이와 높이의 합 반환
-  int InsertNode(Node<T> *node, T target);
+  int InsertNode(Node<T>* node, T target);
   // node를 root로 가지는 트리에 target 노드의 깊이와 높이의 합,
   // target 노드의 부모로부터 root까지 경로의 노드들의 key 값들의 합을 공백으로
   // 구분하여 출력
-  void GetAncestor(Node<T> *node, T target);
+  void GetAncestor(Node<T>* node, T target);
   // node를 root로 가지는 트리에서 노드들의 key 값의 최솟값(a)와 최댓값(b)의
   // 산술평균((a + b)/2) 을 출력
-  void GetAverage(Node<T> *node);
+  void GetAverage(Node<T>* node);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합,
   // 순위(rank)를 공백으로 구분하여 출력
-  void GetRank(Node<T> *node, T target);
+  void GetRank(Node<T>* node, T target);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합을 출력하고
   // 해당 노드를 삭제
-  void EraseNode(Node<T> *node, T target);
+  void EraseNode(Node<T>* node, T target);
 
- private:
-  Node<T> *root_;
+private:
+  Node<T>* root_;
 };
 #endif

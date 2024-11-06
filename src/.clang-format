@@ -1,0 +1,55 @@
+---
+# 기반 스타일 (Google 스타일을 기반으로 커스터마이징)
+BasedOnStyle: Google
+
+# 들여쓰기와 관련된 설정
+IndentWidth: 2                  # 들여쓰기는 2 스페이스
+TabWidth: 2                      # 탭을 2 스페이스로 변환
+UseTab: Never                    # 탭 대신 스페이스 사용
+
+# 줄 길이 관련 설정
+ColumnLimit: 80                  # 한 줄 최대 80문자
+
+# 헤더 가드 포맷 정의
+IncludeBlocks: Preserve
+IncludeIsMainRegex: '([.]h$|[_-]test[.]cc$|[/]main[.]cc$)'
+
+# 헤더 파일 include 순서
+IncludeCategories:
+  - Regex: '^<.*\.h>'            # C 라이브러리
+    Priority: 1
+  - Regex: '^<.*>'               # C++ 라이브러리
+    Priority: 2
+  - Regex: '^"[^/]+/[^/]+/.*"'   # 현재 프로젝트 헤더 파일
+    Priority: 4
+SortIncludes: true               # Include 구문을 알파벳 순으로 정렬
+
+# 함수 관련 설정
+AllowShortFunctionsOnASingleLine: Empty
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 2
+DerivePointerAlignment: false
+
+# 코드 블록 설정
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: true
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: false
+
+# 연산자와 수식 관련 설정
+SpaceBeforeParens: ControlStatements     # if, while, switch 등 제어문에만 괄호 앞에 스페이스
+
+# 클래스 및 함수 선언
+AccessModifierOffset: -2                 # 접근 제어자 위치
+AlignAfterOpenBracket: Align
+AlignOperands: true                      # 이항 연산자를 기준으로 맞춤
+AlignConsecutiveAssignments: true
+
+# 네임스페이스 설정
+NamespaceIndentation: Inner              # 네임스페이스 안에서만 인덴트 적용

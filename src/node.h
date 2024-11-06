@@ -33,8 +33,8 @@
 template <typename T>
 struct Node {
   T key_;
-  Node *left_;
-  Node *right_;
+  Node* left_;
+  Node* right_;
   int height_;
   int size_;
 };

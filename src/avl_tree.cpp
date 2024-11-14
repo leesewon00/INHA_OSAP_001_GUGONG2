@@ -26,3 +26,17 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
 //     2024.11 GUGONG2
+
+#include "avl_tree.h"
+
+// node를 root로 가지는 트리가 비어있는지 여부 반환
+template <typename T>
+bool AVLTree<T>::IsEmpty(Node<T>* node) {
+  if (node == nullptr) {
+    return -1;  // 찾지 못한 경우 -1 반환
+  }
+  if (node->size_ == 0) {
+    return true;
+  }
+  return false;
+}

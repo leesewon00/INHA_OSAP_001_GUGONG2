@@ -34,6 +34,8 @@
 template <typename T>
 class AVLTree {
 public:
+  // node를 root로 가지는 AVLTree 생성자
+  AVLTree(Node<T>* node) : root_(node) {}
   // node를 root로 가지는 트리가 비어있는지 여부 반환
   bool IsEmpty(Node<T>* node);
   // node를 root로 가지는 트리의 원소 수 반환

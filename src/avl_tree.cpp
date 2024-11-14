@@ -58,3 +58,23 @@ int AVLTree<T>::GetHeight(Node<T>* node) {
   }
   return node->height_;
 }
+
+// node를 root로 가지는 트리에서 target 노드의 깊이 반환
+template <typename T>
+int AVLTree<T>::GetDepth(Node<T>* node, T target) {
+  int depth        = 0;
+  Node<T>* current = node;
+
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      return depth;
+    }
+    if (current->key_ > target) {
+      current = current->left_;
+    } else {
+      current = current->right_;
+    }
+    depth++;
+  }
+  return -1;  // 찾지 못한 경우 -1 반환
+}

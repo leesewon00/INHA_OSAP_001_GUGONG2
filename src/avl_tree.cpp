@@ -40,3 +40,12 @@ bool AVLTree<T>::IsEmpty(Node<T>* node) {
   }
   return false;
 }
+
+// node를 root로 가지는 트리의 원소 수 반환
+template <typename T>
+int AVLTree<T>::GetSize(Node<T>* node) {
+  if (node == nullptr) {
+    return -1;  // 찾지 못한 경우 -1 반환
+  }
+  return node->size_;
+}

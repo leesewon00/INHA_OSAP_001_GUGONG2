@@ -78,3 +78,19 @@ int AVLTree<T>::GetDepth(Node<T>* node, T target) {
   }
   return -1;  // 찾지 못한 경우 -1 반환
 }
+
+// node를 root로 가지는 트리에서 target 노드의 포인터 반환
+template <typename T>
+Node<T>* AVLTree<T>::FindNode(Node<T>* node, T target) {
+  while (node != nullptr) {
+    if (node->key_ == target) {
+      return node;
+    }
+    if (node->key_ > target) {
+      node = node->left_;
+    } else {
+      node = node->right_;
+    }
+  }
+  return nullptr;  // 찾지 못한 경우 nullptr 반환
+}

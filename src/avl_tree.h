@@ -42,8 +42,8 @@ public:
   int GetHeight(Node<T>* node);
   // node를 root로 가지는 트리에서 target 노드의 깊이 반환
   int GetDepth(Node<T>* node, T target);
-  // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합 반환
-  int FindNode(Node<T>* node, T target);
+  // node를 root로 가지는 트리에서 target 노드 포인터 반환
+  Node<T>* FindNode(Node<T>* node, T target);
   // node를 root로 가지는 트리에 새로운 target 노드를 삽입하고
   // 깊이와 높이의 합 반환
   int InsertNode(Node<T>* node, T target);

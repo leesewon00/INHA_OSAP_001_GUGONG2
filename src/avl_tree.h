@@ -34,14 +34,24 @@
 template <typename T>
 class AVLTree {
 public:
+  // 기본 생성자
+  AVLTree() : root_(nullptr) {}
+  // node를 root로 가지는 AVLTree 생성자
+  AVLTree(Node<T>* node) : root_(node) {}
+  // AVLTree의 root 반환
+  Node<T>* GetRoot() {
+    return this->root_;
+  }
   // node를 root로 가지는 트리가 비어있는지 여부 반환
   bool IsEmpty(Node<T>* node);
   // node를 root로 가지는 트리의 원소 수 반환
   int GetSize(Node<T>* node);
   // node를 root로 가지는 트리의 높이 반환
   int GetHeight(Node<T>* node);
-  // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합 반환
-  int FindNode(Node<T>* node, T target);
+  // node를 root로 가지는 트리에서 target 노드의 깊이 반환
+  int GetDepth(Node<T>* node, T target);
+  // node를 root로 가지는 트리에서 target 노드 포인터 반환
+  Node<T>* FindNode(Node<T>* node, T target);
   // node를 root로 가지는 트리에 새로운 target 노드를 삽입하고
   // 깊이와 높이의 합 반환
   int InsertNode(Node<T>* node, T target);

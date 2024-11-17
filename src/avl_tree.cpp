@@ -26,3 +26,71 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
 //     2024.11 GUGONG2
+
+#include "avl_tree.h"
+
+// node를 root로 가지는 트리가 비어있는지 여부 반환
+template <typename T>
+bool AVLTree<T>::IsEmpty(Node<T>* node) {
+  if (node == nullptr) {
+    return -1;  // 찾지 못한 경우 -1 반환
+  }
+  if (node->size_ == 0) {
+    return true;
+  }
+  return false;
+}
+
+// node를 root로 가지는 트리의 원소 수 반환
+template <typename T>
+int AVLTree<T>::GetSize(Node<T>* node) {
+  if (node == nullptr) {
+    return -1;  // 찾지 못한 경우 -1 반환
+  }
+  return node->size_;
+}
+
+// node를 root로 가지는 트리의 높이 반환
+template <typename T>
+int AVLTree<T>::GetHeight(Node<T>* node) {
+  if (node == nullptr) {
+    return -1;  // 찾지 못한 경우 -1 반환
+  }
+  return node->height_;
+}
+
+// node를 root로 가지는 트리에서 target 노드의 깊이 반환
+template <typename T>
+int AVLTree<T>::GetDepth(Node<T>* node, T target) {
+  int depth        = 0;
+  Node<T>* current = node;
+
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      return depth;
+    }
+    if (current->key_ > target) {
+      current = current->left_;
+    } else {
+      current = current->right_;
+    }
+    depth++;
+  }
+  return -1;  // 찾지 못한 경우 -1 반환
+}
+
+// node를 root로 가지는 트리에서 target 노드의 포인터 반환
+template <typename T>
+Node<T>* AVLTree<T>::FindNode(Node<T>* node, T target) {
+  while (node != nullptr) {
+    if (node->key_ == target) {
+      return node;
+    }
+    if (node->key_ > target) {
+      node = node->left_;
+    } else {
+      node = node->right_;
+    }
+  }
+  return nullptr;  // 찾지 못한 경우 nullptr 반환
+}

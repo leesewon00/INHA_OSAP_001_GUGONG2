@@ -37,5 +37,8 @@ struct Node {
   Node* right_;
   int height_;
   int size_;
+
+  Node(T key)
+    : key_(key), left_(nullptr), right_(nullptr), height_(1), size_(1) {}
 };
 #endif

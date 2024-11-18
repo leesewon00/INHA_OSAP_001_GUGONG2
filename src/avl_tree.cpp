@@ -140,16 +140,17 @@ Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
 
 template <typename T>
 Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
-  // Insert 특정상 node에는 root 고정. target 에 Insert Node 정보가 들어감.
+  // 노드가 자기 자리를 찾았을 경우
   if (node == nullptr) {
     return new Node(target);
-  }
+  }  // BST order에 따라 자리 탐색
   if (target < node->key_) {
     node->left = InsertNode(node->left_, target);
   } else if (target > node->key_) {
     node->right_ = InsertNode(node->right_, target);
   }
 
+  // target node의 모든 Ancestor의 height를 update
   UpdateHeight(node);
 
   // get balance factor in specific node
@@ -159,16 +160,17 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
   right_height     = (right_height == -1) ? 0 : right_height;
   int bf           = left_height - right_height;
 
+  // LL case
   if (bf > 1 && target < node->left_->key_) {
     return RightRotate(node);
-  }
+  }  // RR case
   if (bf < -1 && target > node->right_->key_) {
     return LeftRotate(node);
-  }
+  }  // LR case
   if (bf > 1 && target > node->left_->key_) {
     node->left_ = LeftRotate(node->left_);
     return RightRotate(node);
-  }
+  }  // RL case
   if (bf < -1 && target < node->right_->key_) {
     node->right_ = RightRotate(node->right_);
     return LeftRotate(node);
@@ -179,5 +181,6 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
 template <typename T>
 int AVLTree<T>::Insert(T target) {
   root_ = InsertNode(root_, target);
+  // 문제 조건의 깊이와 높이의 합을 리턴
   return GetDepth(root_, target) + FindNode(root_, target)->height_;
 }

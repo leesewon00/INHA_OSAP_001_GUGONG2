@@ -54,10 +54,15 @@ public:
   Node<T>* FindNode(Node<T>* node, T target);
   // AVL tree insert, return depth + height
   int Insert(T target);
+  // AVL tree insert, insert node according to BST order
   Node<T>* InsertNode(Node<T>* node, T target);
+  // User Defined max function
   T Max(T a, T b);
+  // Update Height
   void UpdateHeight(Node<T>* node);
+  // right rotate function
   Node<T>* RightRotate(Node<T>* node);
+  // left rotate function
   Node<T>* LeftRotate(Node<T>* node);
   // node를 root로 가지는 트리에 target 노드의 깊이와 높이의 합,
   // target 노드의 부모로부터 root까지 경로의 노드들의 key 값들의 합을 공백으로

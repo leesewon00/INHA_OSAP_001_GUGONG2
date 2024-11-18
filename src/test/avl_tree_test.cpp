@@ -67,6 +67,16 @@ TEST_F(AVLTreeTest, IsEmptyTest_EmptyCase) {
   EXPECT_EQ(true, tree.IsEmpty(nullptr));
 }
 
+// GetSize 메소드 검증 : 루트가 null이 아닌 경우
+TEST_F(AVLTreeTest, GetSizeTest_ValidRoot) {
+  EXPECT_EQ(3, tree.GetSize(tree.GetRoot()));
+}
+
+// GetSize 메소드 검증 : 루트가 null인 경우
+TEST_F(AVLTreeTest, GetSizeTest_InvalidRoot) {
+  EXPECT_EQ(-1, tree.GetSize(nullptr));
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

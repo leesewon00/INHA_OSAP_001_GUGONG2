@@ -97,6 +97,16 @@ TEST_F(AVLTreeTest, GetDepthTest_InvalidTarget) {
   EXPECT_EQ(-1, tree.GetDepth(tree.GetRoot(), -1));
 }
 
+// FindNode 메소드 검증 : 트리에 존재하는 Target 값이 들어올 때
+TEST_F(AVLTreeTest, FindNodeTest_ValidTarget) {
+  EXPECT_EQ(left, tree.FindNode(tree.GetRoot(), tree.GetRoot()->left_->key_));
+}
+
+// FindNode 메소드 검증 : 트리에 존재하지 않는 Target 값이 들어올 때
+TEST_F(AVLTreeTest, FindNodeTest_InvalidTarget) {
+  EXPECT_EQ(nullptr, tree.FindNode(tree.GetRoot(), -1));
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -94,3 +94,93 @@ Node<T>* AVLTree<T>::FindNode(Node<T>* node, T target) {
   }
   return nullptr;  // 찾지 못한 경우 nullptr 반환
 }
+
+template <typename T>
+T AVLTree<T>::Max(T a, T b) {
+  return (a > b) ? a : b;
+}
+
+template <typename T>
+void AVLTree<T>::UpdateHeight(Node<T>* node) {
+  int left_height  = GetHeight(node->left_);
+  left_height      = (left_height == -1) ? 0 : left_height;
+  int right_height = GetHeight(node->right_);
+  right_height     = (right_height == -1) ? 0 : right_height;
+  // height update
+  node->height_ = 1 + Max(left_height, right_height);
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::RightRotate(Node<T>* node) {
+  Node<T>* left_child       = node->left_;
+  Node<T>* left_right_child = left_child->right_;
+
+  left_child->right_ = node;
+  node->left_        = left_right_child;
+
+  UpdateHeight(node);
+  UpdateHeight(left_child);
+
+  return left_child;
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
+  Node<T>* right_child      = node->right_;
+  Node<T>* right_left_child = right_child->left_;
+
+  right_child->left = node;
+  node->right_      = right_left_child;
+
+  UpdateHeight(node);
+  UpdateHeight(right_child);
+
+  return right_child;
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
+  // 노드가 자기 자리를 찾았을 경우
+  if (node == nullptr) {
+    return new Node(target);
+  }  // BST order에 따라 자리 탐색
+  if (target < node->key_) {
+    node->left = InsertNode(node->left_, target);
+  } else if (target > node->key_) {
+    node->right_ = InsertNode(node->right_, target);
+  }
+
+  // target node의 모든 Ancestor의 height를 update
+  UpdateHeight(node);
+
+  // get balance factor in specific node
+  int left_height  = GetHeight(node->left_);
+  left_height      = (left_height == -1) ? 0 : left_height;
+  int right_height = GetHeight(node->right_);
+  right_height     = (right_height == -1) ? 0 : right_height;
+  int bf           = left_height - right_height;
+
+  // LL case
+  if (bf > 1 && target < node->left_->key_) {
+    return RightRotate(node);
+  }  // RR case
+  if (bf < -1 && target > node->right_->key_) {
+    return LeftRotate(node);
+  }  // LR case
+  if (bf > 1 && target > node->left_->key_) {
+    node->left_ = LeftRotate(node->left_);
+    return RightRotate(node);
+  }  // RL case
+  if (bf < -1 && target < node->right_->key_) {
+    node->right_ = RightRotate(node->right_);
+    return LeftRotate(node);
+  }
+  return node;
+}
+
+template <typename T>
+int AVLTree<T>::Insert(T target) {
+  root_ = InsertNode(root_, target);
+  // 문제 조건의 깊이와 높이의 합을 리턴
+  return GetDepth(root_, target) + FindNode(root_, target)->height_;
+}

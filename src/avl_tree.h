@@ -30,9 +30,10 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 #include "node.h"
+#include "tree.h"
 
 template <typename T>
-class AVLTree {
+class AVLTree : public Tree<T> {
 public:
   // 기본 생성자
   AVLTree() : root_(nullptr) {}

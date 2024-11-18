@@ -57,6 +57,16 @@ protected:
   }
 };
 
+// IsEmpty 메소드 검증 : 트리가 비어있지 않은 경우
+TEST_F(AVLTreeTest, IsEmptyTest_NotEmptyCase) {
+  EXPECT_EQ(false, tree.IsEmpty(tree.GetRoot()));
+}
+
+// IsEmpty 메소드 검증 : 트리가 비어있는 경우
+TEST_F(AVLTreeTest, IsEmptyTest_EmptyCase) {
+  EXPECT_EQ(true, tree.IsEmpty(nullptr));
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

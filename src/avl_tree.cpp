@@ -153,7 +153,11 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
   UpdateHeight(node);
 
   // get balance factor in specific node
-  int bf = left_height - right_height;
+  int left_height  = GetHeight(node->left_);
+  left_height      = (left_height == -1) ? 0 : left_height;
+  int right_height = GetHeight(node->right_);
+  right_height     = (right_height == -1) ? 0 : right_height;
+  int bf           = left_height - right_height;
 
   if (bf > 1 && target < node->left_->key_) {
     return RightRotate(node);

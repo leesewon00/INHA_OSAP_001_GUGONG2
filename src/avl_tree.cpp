@@ -94,89 +94,86 @@ Node<T>* AVLTree<T>::FindNode(Node<T>* node, T target) {
   }
   return nullptr;  // 찾지 못한 경우 nullptr 반환
 }
+
 template <typename T>
-T max(T a, T b) {
-  return (a > b) a : b;
+T AVLTree<T>::Max(T a, T b) {
+  return (a > b) ? a : b;
 }
 
 template <typename T>
-void updateHeight(Node<T>* node) {
-  int leftHeight  = GetHeight(node->left_);
-  leftHeight      = (leftHeight == -1) ? 0 : leftHeight;
-  int rightHeight = GetHeight(node->right_);
-  rightHeight     = (rightHeight == -1) ? 0 : rightHeight;
+void AVLTree<T>::UpdateHeight(Node<T>* node) {
+  int left_height  = GetHeight(node->left_);
+  left_height      = (left_height == -1) ? 0 : left_height;
+  int right_height = GetHeight(node->right_);
+  right_height     = (right_height == -1) ? 0 : right_height;
   // height update
-  node->height_ = 1 + max(leftHeight, rightHeight);
+  node->height_ = 1 + Max(left_height, right_height);
 }
 
 template <typename T>
-Node<T>* rightRotate(Node<T>* node) {
-  Node<T>* leftChild      = node->left_;
-  Node<T>* leftRightChild = leftChild->right_;
+Node<T>* AVLTree<T>::RightRotate(Node<T>* node) {
+  Node<T>* left_child       = node->left_;
+  Node<T>* left_right_child = left_child->right_;
 
-  leftChild->right_ = node;
-  node->left_       = leftRightChild;
+  left_child->right_ = node;
+  node->left_        = left_right_child;
 
-  updateHeight(node);
-  updateHeight(leftChild);
+  UpdateHeight(node);
+  UpdateHeight(left_child);
 
-  return leftChild;
+  return left_child;
 }
 
 template <typename T>
-Node<T>* leftRotate(Node<T>* node) {
-  Node<T>* rightChild     = node->right_;
-  Node<T>* rightLeftChild = rightChild->left_;
+Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
+  Node<T>* right_child      = node->right_;
+  Node<T>* right_left_child = right_child->left_;
 
-  rightChild->left = node;
-  node->right_     = rightLeftChild;
+  right_child->left = node;
+  node->right_      = right_left_child;
 
-  updateHeight(node);
-  updateHeight(rightChild);
+  UpdateHeight(node);
+  UpdateHeight(right_child);
 
-  return rightChild;
+  return right_child;
 }
 
 template <typename T>
-Node<T>* InsertNode(Node<T>* node, T target) {
+Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
   // Insert 특정상 node에는 root 고정. target 에 Insert Node 정보가 들어감.
   if (node == nullptr) {
-    // TODO
-    // Node 생성자 만들고 new Node return;
+    return new Node(target);
   }
   if (target < node->key_) {
     node->left = InsertNode(node->left_, target);
   } else if (target > node->key_) {
-    node->right_ = InsertNode(node->right_, target)
-  } else {
-    // TODO
-    // 중복된 값이 insert 되는 경우
+    node->right_ = InsertNode(node->right_, target);
   }
 
-  updateHeight(node);
+  UpdateHeight(node);
 
   // get balance factor in specific node
-  int bf = leftHeight - rightHeight;
+  int bf = left_height - right_height;
 
   if (bf > 1 && target < node->left_->key_) {
-    return rightRotate(node);
+    return RightRotate(node);
   }
   if (bf < -1 && target > node->right_->key_) {
-    return leftRotate(node);
+    return LeftRotate(node);
   }
   if (bf > 1 && target > node->left_->key_) {
-    node->left_ = leftRotate(node->left_);
-    return rightRotate(node);
+    node->left_ = LeftRotate(node->left_);
+    return RightRotate(node);
   }
   if (bf < -1 && target < node->right_->key_) {
-    node->right_ = rightRotate(node->right_);
-    return leftRotate(node);
+    node->right_ = RightRotate(node->right_);
+    return LeftRotate(node);
   }
   return node;
 }
 
 template <typename T>
-int AVLTree<T>::insert(T target) {
+int AVLTree<T>::Insert(T target) {
   root_ = InsertNode(root_, target);
   return GetDepth(root_, target) + FindNode(root_, target)->height_;
 }

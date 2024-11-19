@@ -184,3 +184,82 @@ int AVLTree<T>::Insert(T target) {
   // 문제 조건의 깊이와 높이의 합을 리턴
   return GetDepth(root_, target) + FindNode(root_, target)->height_;
 }
+
+// target의 높이, 깊이의 합 출력 , target의 부모 ~ 루트 경로의 노드들의 key값의
+// 합 출력
+template <typename T>
+void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
+  Node<T>* target_node = FindNode(node, target);
+
+  int depth  = GetDepth(node, target);
+  int height = GetHeight(target_node);
+  int K      = depth + height;
+
+  int key_sum      = 0;
+  Node<T>* current = node;  // root start
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      break;
+    }
+    key_sum += current->key_;
+    if (target < current->key_) {
+      current = current->left_;
+    } else {
+      current = current->right_;
+    }
+  }
+  std::cout << K << " " << key_sum << '\n';
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::GetMin(Node<T>* node) {
+  while (node != nullptr && node->left_ != nullptr) {
+    node = node->left_;
+  }
+  return node;
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::GetMax(Node<T>* node) {
+  while (node != nullptr && node->right_ != nullptr) {
+    node = node->right_;
+  }
+  return node;
+}
+
+template <typename T>
+void AVLTree<T>::GetAverage(Node<T>* node) {
+  Node<T>* min_node = GetMin(node);
+  Node<T>* max_node = GetMax(node);
+
+  T min_key      = min_node->key_;
+  T max_key      = max_node->key_;
+  double average = ((double)min_key + (double)max_key) / 2.0;
+
+  std::cout << average << '\n';
+}
+
+template <typename T>
+void AVLTree<T>::GetRank(Node<T>* node, T target) {
+  int depth        = 0;
+  int rank         = 0;
+  Node<T>* current = node;
+
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
+      int height = current->height_;
+      int K      = depth + height;
+      std::cout << K << " " << rank << '\n';
+      return;
+    }
+
+    if (target < current->key_) {
+      current = current->left_;
+    } else {
+      rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
+      current = current->right_;
+    }
+    depth++;
+  }
+}

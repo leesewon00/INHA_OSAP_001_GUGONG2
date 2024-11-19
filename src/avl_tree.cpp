@@ -190,10 +190,6 @@ int AVLTree<T>::Insert(T target) {
 template <typename T>
 void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
   Node<T>* target_node = FindNode(node, target);
-  if (target_node == nullptr) {
-    std::cout << "Node not Found\n";
-    return;
-  }
 
   int depth  = GetDepth(node, target);
   int height = GetHeight(target_node);
@@ -213,4 +209,20 @@ void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
     }
   }
   std::cout << K << " " << key_sum << '\n';
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::GetMin(Node<T>* node) {
+  while (node != nullptr && node->left_ != nullptr) {
+    node = node->left_;
+  }
+  return node;
+}
+
+template <typename T>
+Node<T>* AVLTree<T>::GetMax(Node<T>* node) {
+  while (node != nullptr && node->right_ != nullptr) {
+    node = node->right_;
+  }
+  return node;
 }

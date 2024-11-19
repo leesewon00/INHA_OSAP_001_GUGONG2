@@ -184,3 +184,33 @@ int AVLTree<T>::Insert(T target) {
   // 문제 조건의 깊이와 높이의 합을 리턴
   return GetDepth(root_, target) + FindNode(root_, target)->height_;
 }
+
+// target의 높이, 깊이의 합 출력 , target의 부모 ~ 루트 경로의 노드들의 key값의
+// 합 출력
+template <typename T>
+void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
+  Node<T>* target_node = FindNode(node, target);
+  if (target_node == nullptr) {
+    std::cout << "Node not Found\n";
+    return;
+  }
+
+  int depth  = GetDepth(node, target);
+  int height = GetHeight(target_node);
+  int K      = depth + height;
+
+  int key_sum      = 0;
+  Node<T>* current = node;  // root start
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      break;
+    }
+    key_sum += current->key_;
+    if (target < current->key_) {
+      current = current->left_;
+    } else {
+      current = current->right_;
+    }
+  }
+  std::cout << K << " " << key_sum << '\n';
+}

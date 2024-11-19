@@ -129,8 +129,8 @@ Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
   Node<T>* right_child      = node->right_;
   Node<T>* right_left_child = right_child->left_;
 
-  right_child->left = node;
-  node->right_      = right_left_child;
+  right_child->left_ = node;
+  node->right_       = right_left_child;
 
   UpdateHeight(node);
   UpdateHeight(right_child);
@@ -145,7 +145,7 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
     return new Node(target);
   }  // BST order에 따라 자리 탐색
   if (target < node->key_) {
-    node->left = InsertNode(node->left_, target);
+    node->left_ = InsertNode(node->left_, target);
   } else if (target > node->key_) {
     node->right_ = InsertNode(node->right_, target);
   }

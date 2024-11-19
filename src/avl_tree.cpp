@@ -238,3 +238,28 @@ void AVLTree<T>::GetAverage(Node<T>* node) {
 
   std::cout << average << '\n';
 }
+
+template <typename T>
+void AVLTree<T>::GetRank(Node<T>* node, T target) {
+  int depth        = 0;
+  int rank         = 0;
+  Node<T>* current = node;
+
+  while (current != nullptr) {
+    if (current->key_ == target) {
+      rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
+      int height = current->height_;
+      int K      = depth + height;
+      std::cout << K << " " << rank << '\n';
+      return;
+    }
+
+    if (target < current->key_) {
+      current = current->left_;
+    } else {
+      rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
+      current = current->right_;
+    }
+    depth++;
+  }
+}

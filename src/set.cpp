@@ -26,3 +26,31 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
 //     2024.11 GUGONG2
+#include <set.h>
+
+template <typename T>
+bool IsEmpty(Node<T>* node) {}
+
+template <typename T>
+int GetSize(Node<T>* node) {}
+
+template <typename T>
+int GetHeight(Node<T>* node) {}
+
+template <typename T>
+Node<T>* FindNode(Node<T>* node, T target) {}
+
+template <typename T>
+int Insert(T target) {}
+
+template <typename T>
+void GetAncestor(Node<T>* node, T target) {}
+
+template <typename T>
+void GetAverage(Node<T>* node) {}
+
+template <typename T>
+void EraseNode(Node<T>* node, T target) {}
+
+template <typename T>
+void GetRank(Node<T>* node, T target) {}

@@ -26,3 +26,31 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
 //     2024.11 GUGONG2
+#ifndef SET_H
+#define SET_H
+
+#include "avl_tree.h"
+#include "tree.h"
+
+template <typename T>
+class Set {
+private:
+  Tree<T>* tree;
+
+public:
+  Set(Tree<T>* treeImpl) : tree(treeImpl) {}
+  bool IsEmpty(Node<T>* node);
+  int GetSize(Node<T>* node);
+  int GetHeight(Node<T>* node);
+  Node<T>* FindNode(Node<T>* node, T target);
+  int Insert(T target);
+  void GetAncestor(Node<T>* node, T target);
+  void GetAverage(Node<T>* node);
+  void EraseNode(Node<T>* node, T target);
+  void GetRank(Node<T>* node, T target);
+  ~Set() {
+    delete tree;
+  }
+};
+
+#endif  // SET_H

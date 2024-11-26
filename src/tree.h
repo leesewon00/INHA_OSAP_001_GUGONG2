@@ -15,6 +15,7 @@ public:
   virtual void GetAverage(Node<T>* node)             = 0;
   virtual void EraseNode(Node<T>* node, T target)    = 0;
   virtual void GetRank(Node<T>* node, T target)      = 0;
+  virtual Node<T>* getRoot()                         = 0;
   virtual ~Tree()                                    = default;
 };
 

@@ -240,6 +240,11 @@ void AVLTree<T>::GetAverage(Node<T>* node) {
 }
 
 template <typename T>
+Node<T>* AVLTree<T>::getRoot() {
+  return root_;
+}
+
+template <typename T>
 void AVLTree<T>::GetRank(Node<T>* node, T target) {
   int depth        = 0;
   int rank         = 0;

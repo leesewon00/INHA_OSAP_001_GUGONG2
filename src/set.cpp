@@ -29,16 +29,24 @@
 #include <set.h>
 
 template <typename T>
-bool IsEmpty(Node<T>* node) {}
+bool Set<T>::IsEmpty(Node<T>* node) {
+  return tree->IsEmpty(node);
+}
 
 template <typename T>
-int GetSize(Node<T>* node) {}
+int Set<T>::GetSize(Node<T>* node) {
+  return tree->GetSize(node);
+}
 
 template <typename T>
-int GetHeight(Node<T>* node) {}
+int Set<T>::GetHeight(Node<T>* node) {
+  return tree->GetHeight(node);
+}
 
 template <typename T>
-Node<T>* FindNode(Node<T>* node, T target) {}
+Node<T>* Set<T>::FindNode(Node<T>* node, T target) {
+  return tree->FindNode(node, target);
+}
 
 template <typename T>
 int Insert(T target) {}

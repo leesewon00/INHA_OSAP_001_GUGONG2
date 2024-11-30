@@ -208,7 +208,7 @@ void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
       current = current->right_;
     }
   }
-  std::cout << K << " " << key_sum << '\n';
+  // std::cout << K << " " << key_sum << '\n';
 }
 
 template <typename T>
@@ -236,12 +236,73 @@ void AVLTree<T>::GetAverage(Node<T>* node) {
   T max_key      = max_node->key_;
   double average = ((double)min_key + (double)max_key) / 2.0;
 
-  std::cout << average << '\n';
+  // std::cout << average << '\n';
 }
 
 template <typename T>
 Node<T>* AVLTree<T>::getRoot() {
   return root_;
+}
+
+template <typename T>
+void AVLTree<T>::EraseNode(Node<T>* node, T target) {
+  // initial node must be root.
+  if (node->key_ > item && node->left_ != nullptr) {
+    node->left_ = EraseNode(node->left_, target);
+  } else if (node->key_ < target && node->right_ != nullptr) {
+    node->right_ = EraseNode(node->right_, target);
+  } else if (node->key_ == target) {
+    Node<T>* cur_node = node;
+    if (node->left_ == nullptr) {
+      node = node->right_;
+    } else if (node->right_ == nullptr) {
+      node = node->left_;
+    } else {
+      Node<T>* right_node        = node->right_;
+      Node<T>* parent_right_node = node;
+
+      while (right_node->left_ != nullptr) {
+        parent_right_node = right_node;
+        right_node        = right_node->left_;
+      }
+
+      node->key_ = right_node->key_;
+
+      if (parent_right_node == node) {
+        node->right_ = right_node->right_;
+      } else {
+        parent_right_node->left_ = right_node->right_;
+      }
+      cur_node = right_node;
+    }
+    delete cur_node;
+  }
+  if (node != nullptr) {
+    int left_height  = GetHeight(node->left_);
+    left_height      = (left_height == -1) ? 0 : left_height;
+    int right_height = GetHeight(node->right_);
+    right_height     = (right_height == -1) ? 0 : right_height;
+    node->height_    = Max(left_height, right_height) + 1;
+    int bf           = left_height - right_height;
+
+    // LL case
+    if (bf > 1 && target < node->left_->key_) {
+      node = RightRotate(node);
+    }  // RR case
+    if (bf < -1 && target > node->right_->key_) {
+      node = LeftRotate(node);
+    }  // LR case
+    if (bf > 1 && target > node->left_->key_) {
+      node->left_ = LeftRotate(node->left_);
+      node        = RightRotate(node);
+    }  // RL case
+    if (bf < -1 && target < node->right_->key_) {
+      node->right_ = RightRotate(node->right_);
+      node         = LeftRotate(node);
+    }
+  }
+
+  return node;
 }
 
 template <typename T>
@@ -255,7 +316,7 @@ void AVLTree<T>::GetRank(Node<T>* node, T target) {
       rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
       int height = current->height_;
       int K      = depth + height;
-      std::cout << K << " " << rank << '\n';
+      // std::cout << K << " " << rank << '\n';
       return;
     }
 

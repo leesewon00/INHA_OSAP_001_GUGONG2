@@ -246,9 +246,9 @@ Node<T>* AVLTree<T>::getRoot() {
 }
 
 template <typename T>
-void AVLTree<T>::EraseNode(Node<T>* node, T target) {
+Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
   // initial node must be root.
-  if (node->key_ > item && node->left_ != nullptr) {
+  if (node->key_ > target && node->left_ != nullptr) {
     node->left_ = EraseNode(node->left_, target);
   } else if (node->key_ < target && node->right_ != nullptr) {
     node->right_ = EraseNode(node->right_, target);

@@ -152,6 +152,7 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
 
   // target node의 모든 Ancestor의 height를 update
   UpdateHeight(node);
+  node->size_ += 1;
 
   // get balance factor in specific node
   int left_height  = GetHeight(node->left_);

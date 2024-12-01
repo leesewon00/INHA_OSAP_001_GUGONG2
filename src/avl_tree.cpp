@@ -237,7 +237,7 @@ double AVLTree<T>::GetAverage(Node<T>* node) {
   T max_key      = max_node->key_;
   double average = ((double)min_key + (double)max_key) / 2.0;
 
-  return double;
+  return average;
 }
 
 template <typename T>

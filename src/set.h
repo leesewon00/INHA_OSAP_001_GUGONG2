@@ -45,11 +45,11 @@ public:
   Node<T>* FindNode(T target);
   int Insert(T target);
   // return pair<K , key_sum>
-  std::pair<int, int> GetAncestor(Node<T>* node, T target);
-  double GetAverage(Node<T>* node);
+  std::pair<int, int> GetAncestor(T target);
+  double GetAverage(T target);
   void EraseNode(Node<T>* node, T target);
   // return pair<K, rank>
-  std::pair<int, int> GetRank(Node<T>* node, T target);
+  std::pair<int, int> GetRank(T target);
   ~Set() {
     delete tree;
   }

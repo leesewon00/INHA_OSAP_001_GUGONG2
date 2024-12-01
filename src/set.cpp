@@ -53,7 +53,7 @@ int Insert(T target) {}
 
 template <typename T>
 std::pair<int, int> Set<T>::GetAncestor(T target) {
-  tree->GetAncestor(tree->getRoot(), target);
+  return tree->GetAncestor(tree->getRoot(), target);
 }
 
 template <typename T>

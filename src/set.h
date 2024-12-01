@@ -42,7 +42,7 @@ public:
   bool IsEmpty(Node<T>* node);
   int GetSize(Node<T>* node);
   int GetHeight(Node<T>* node);
-  Node<T>* FindNode(Node<T>* node, T target);
+  Node<T>* FindNode(T target);
   int Insert(T target);
   void GetAncestor(Node<T>* node, T target);
   void GetAverage(Node<T>* node);

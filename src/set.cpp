@@ -44,8 +44,8 @@ int Set<T>::GetHeight(Node<T>* node) {
 }
 
 template <typename T>
-Node<T>* Set<T>::FindNode(Node<T>* node, T target) {
-  return tree->FindNode(node, target);
+Node<T>* Set<T>::FindNode(T target) {
+  return tree->FindNode(tree->getRoot(), target);
 }
 
 template <typename T>

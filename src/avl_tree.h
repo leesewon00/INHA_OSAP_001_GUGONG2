@@ -29,6 +29,7 @@
 
 #ifndef AVLTREE_H
 #define AVLTREE_H
+#include <iostream>
 #include "node.h"
 #include "tree.h"
 

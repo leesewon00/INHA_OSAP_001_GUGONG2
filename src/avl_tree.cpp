@@ -209,7 +209,7 @@ void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
       current = current->right_;
     }
   }
-  // std::cout << K << " " << key_sum << '\n';
+  std::cout << K << " " << key_sum << '\n';
 }
 
 template <typename T>
@@ -237,7 +237,7 @@ void AVLTree<T>::GetAverage(Node<T>* node) {
   T max_key      = max_node->key_;
   double average = ((double)min_key + (double)max_key) / 2.0;
 
-  // std::cout << average << '\n';
+  std::cout << average << '\n';
 }
 
 template <typename T>
@@ -317,7 +317,7 @@ void AVLTree<T>::GetRank(Node<T>* node, T target) {
       rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
       int height = current->height_;
       int K      = depth + height;
-      // std::cout << K << " " << rank << '\n';
+      std::cout << K << " " << rank << '\n';
       return;
     }
 

@@ -52,13 +52,19 @@ template <typename T>
 int Insert(T target) {}
 
 template <typename T>
-void GetAncestor(Node<T>* node, T target) {}
+std::pair<int, int> Set<T>::GetAncestor(Node<T>* node, T target) {
+  return tree->GetAncestor(node, target);
+}
 
 template <typename T>
-void GetAverage(Node<T>* node) {}
+double Set<T>::GetAverage(Node<T>* node) {
+  return tree->GetAverage(node);
+}
 
 template <typename T>
 void EraseNode(Node<T>* node, T target) {}
 
 template <typename T>
-void GetRank(Node<T>* node, T target) {}
+std::pair<int, int> Set<T>::GetRank(Node<T>* node, T target) {
+  return tree->GetRank(node, target)
+}

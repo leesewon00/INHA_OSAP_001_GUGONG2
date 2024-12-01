@@ -44,10 +44,12 @@ public:
   int GetHeight(Node<T>* node);
   Node<T>* FindNode(T target);
   int Insert(T target);
-  void GetAncestor(Node<T>* node, T target);
-  void GetAverage(Node<T>* node);
+  // return pair<K , key_sum>
+  std::pair<int, int> GetAncestor(Node<T>* node, T target);
+  double GetAverage(Node<T>* node);
   void EraseNode(Node<T>* node, T target);
-  void GetRank(Node<T>* node, T target);
+  // return pair<K, rank>
+  std::pair<int, int> GetRank(Node<T>* node, T target);
   ~Set() {
     delete tree;
   }

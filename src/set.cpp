@@ -67,5 +67,5 @@ void EraseNode(Node<T>* node, T target) {}
 
 template <typename T>
 std::pair<int, int> Set<T>::GetRank(T target) {
-  return tree->GetRank(tree->getRoot(), target)
+  return tree->GetRank(tree->getRoot(), target);
 }

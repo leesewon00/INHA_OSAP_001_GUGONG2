@@ -189,7 +189,7 @@ int AVLTree<T>::Insert(T target) {
 // target의 높이, 깊이의 합 출력 , target의 부모 ~ 루트 경로의 노드들의 key값의
 // 합 출력
 template <typename T>
-void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
+std::pair<int, int> AVLTree<T>::GetAncestor(Node<T>* node, T target) {
   Node<T>* target_node = FindNode(node, target);
 
   int depth  = GetDepth(node, target);
@@ -209,7 +209,7 @@ void AVLTree<T>::GetAncestor(Node<T>* node, T target) {
       current = current->right_;
     }
   }
-  std::cout << K << " " << key_sum << '\n';
+  return {K, key_sum};
 }
 
 template <typename T>
@@ -229,7 +229,7 @@ Node<T>* AVLTree<T>::GetMax(Node<T>* node) {
 }
 
 template <typename T>
-void AVLTree<T>::GetAverage(Node<T>* node) {
+double AVLTree<T>::GetAverage(Node<T>* node) {
   Node<T>* min_node = GetMin(node);
   Node<T>* max_node = GetMax(node);
 
@@ -237,7 +237,7 @@ void AVLTree<T>::GetAverage(Node<T>* node) {
   T max_key      = max_node->key_;
   double average = ((double)min_key + (double)max_key) / 2.0;
 
-  std::cout << average << '\n';
+  return double;
 }
 
 template <typename T>
@@ -307,7 +307,7 @@ Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
 }
 
 template <typename T>
-void AVLTree<T>::GetRank(Node<T>* node, T target) {
+std::pair<int, int> AVLTree<T>::GetRank(Node<T>* node, T target) {
   int depth        = 0;
   int rank         = 0;
   Node<T>* current = node;
@@ -317,8 +317,7 @@ void AVLTree<T>::GetRank(Node<T>* node, T target) {
       rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
       int height = current->height_;
       int K      = depth + height;
-      std::cout << K << " " << rank << '\n';
-      return;
+      return {K, rank};  // return K, rank
     }
 
     if (target < current->key_) {

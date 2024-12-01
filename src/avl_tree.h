@@ -29,7 +29,6 @@
 
 #ifndef AVLTREE_H
 #define AVLTREE_H
-#include <iostream>
 #include "node.h"
 #include "tree.h"
 
@@ -69,17 +68,17 @@ public:
   // node를 root로 가지는 트리에 target 노드의 깊이와 높이의 합,
   // target 노드의 부모로부터 root까지 경로의 노드들의 key 값들의 합을 공백으로
   // 구분하여 출력
-  void GetAncestor(Node<T>* node, T target);
+  std::pair<int, int> GetAncestor(Node<T>* node, T target);
   // node를 root로 하는 트리에서 가장 작은 key값을 가진 노ㄷ 반환
   Node<T>* GetMin(Node<T>* node);
   // node를 root로 하는 트리에서 가장 큰 key값을 가진 노드 반환
   Node<T>* GetMax(Node<T>* node);
   // node를 root로 가지는 트리에서 노드들의 key 값의 최솟값(a)와 최댓값(b)의
   // 산술평균((a + b)/2) 을 출력
-  void GetAverage(Node<T>* node);
+  double GetAverage(Node<T>* node);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합,
   // 순위(rank)를 공백으로 구분하여 출력
-  void GetRank(Node<T>* node, T target);
+  std::pair<int, int> GetRank(Node<T>* node, T target);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합을 출력하고
   // 해당 노드를 삭제
   Node<T>* EraseNode(Node<T>* node, T target);

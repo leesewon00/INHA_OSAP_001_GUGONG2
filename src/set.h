@@ -39,9 +39,9 @@ private:
 
 public:
   Set(Tree<T>* treeImpl) : tree(treeImpl) {}
-  bool IsEmpty();
-  int GetSize();
-  int GetHeight();
+  bool IsEmpty(Node<T>* node);
+  int GetSize(Node<T>* node);
+  int GetHeight(Node<T>* node);
   Node<T>* FindNode(T target);
   int Insert(T target);
   // return pair<K , key_sum>

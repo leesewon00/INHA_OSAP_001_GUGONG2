@@ -10,6 +10,7 @@ public:
   virtual bool IsEmpty(Node<T>* node)                 = 0;
   virtual int GetSize(Node<T>* node)                  = 0;
   virtual int GetHeight(Node<T>* node)                = 0;
+  virtual int GetDepth(Node<T>* node, T target)       = 0;
   virtual Node<T>* FindNode(Node<T>* node, T target)  = 0;
   virtual int Insert(T target)                        = 0;
   virtual std::pair<int, int> GetAncestor(Node<T>* node,

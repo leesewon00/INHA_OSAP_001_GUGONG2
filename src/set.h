@@ -42,7 +42,7 @@ public:
   bool IsEmpty();
   int GetSize();
   int GetHeight();
-  Node<T>* FindNode(T target);
+  int FindNode(T target);
   int Insert(T target);
   // return pair<K , key_sum>
   std::pair<int, int> GetAncestor(T target);

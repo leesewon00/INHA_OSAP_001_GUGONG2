@@ -45,6 +45,9 @@ int Set<T>::GetHeight() {
 
 template <typename T>
 int Set<T>::FindNode(T target) {
+  if (tree->FindNode(tree->getRoot(), target) == nullptr) {
+    return 0;
+  }
   Node<T>* n = tree->FindNode(tree->getRoot(), target);
   return n->height_ + tree->GetDepth(tree->getRoot(), target);
 }

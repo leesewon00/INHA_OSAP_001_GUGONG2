@@ -44,12 +44,15 @@ int Set<T>::GetHeight() {
 }
 
 template <typename T>
-Node<T>* Set<T>::FindNode(T target) {
-  return tree->FindNode(tree->getRoot(), target);
+int Set<T>::FindNode(T target) {
+  Node<T>* n = tree->FindNode(tree->getRoot(), target);
+  return n->height_ + tree->GetDepth(tree->getRoot(), target);
 }
 
 template <typename T>
-int Insert(T target) {}
+int Set<T>::Insert(T target) {
+  return tree->Insert(target);
+}
 
 template <typename T>
 std::pair<int, int> Set<T>::GetAncestor(T target) {

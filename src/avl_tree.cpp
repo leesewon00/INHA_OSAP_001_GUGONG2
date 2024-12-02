@@ -191,6 +191,9 @@ int AVLTree<T>::Insert(T target) {
 template <typename T>
 std::pair<int, int> AVLTree<T>::GetAncestor(Node<T>* node, T target) {
   Node<T>* target_node = FindNode(node, target);
+  if (target_node == nullptr) {
+    return std::make_pair(-1, -1);
+  }
 
   int depth  = GetDepth(node, target);
   int height = GetHeight(target_node);
@@ -329,5 +332,5 @@ std::pair<int, int> AVLTree<T>::GetRank(Node<T>* node, T target) {
     depth++;
   }
 
-  return std::make_pair(-1, -1);  // can't reach
+  return std::make_pair(-1, -1);  // error case , 없는 값이 들어온 경우
 }

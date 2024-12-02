@@ -65,6 +65,9 @@ std::pair<int, int> Set<T>::GetAncestor(T target) {
 template <typename T>
 double Set<T>::GetAverage(T target) {
   Node<T>* targetNode = tree->FindNode(tree->getRoot(), target);
+  if (targetNode == nullptr) {
+    return -1.0;
+  }
   return tree->GetAverage(targetNode);
 }
 

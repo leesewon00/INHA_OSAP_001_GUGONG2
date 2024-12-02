@@ -209,7 +209,7 @@ std::pair<int, int> AVLTree<T>::GetAncestor(Node<T>* node, T target) {
       current = current->right_;
     }
   }
-  return {K, key_sum};
+  return std::make_pair(K, key_sum);
 }
 
 template <typename T>
@@ -317,7 +317,7 @@ std::pair<int, int> AVLTree<T>::GetRank(Node<T>* node, T target) {
       rank += (current->left_ != nullptr ? current->left_->size_ : 0) + 1;
       int height = current->height_;
       int K      = depth + height;
-      return {K, rank};  // return K, rank
+      return std::make_pair(K, rank);  // return K, rank
     }
 
     if (target < current->key_) {
@@ -328,4 +328,6 @@ std::pair<int, int> AVLTree<T>::GetRank(Node<T>* node, T target) {
     }
     depth++;
   }
+
+  return std::make_pair(-1, -1);  // can't reach
 }

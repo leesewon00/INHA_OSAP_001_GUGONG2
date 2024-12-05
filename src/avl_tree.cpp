@@ -108,6 +108,16 @@ void AVLTree<T>::UpdateHeight(Node<T>* node) {
   right_height     = (right_height == -1) ? 0 : right_height;
   // height update
   node->height_ = 1 + Max(left_height, right_height);
+
+  if (node->height_ == 1) {
+    node->left_  = nullptr;
+    node->right_ = nullptr;
+    node->size_  = 1;
+  } else {
+    int lsize   = (node->left_ != nullptr) ? node->left_->size_ : 0;
+    int rsize   = (node->right_ != nullptr) ? node->right_->size_ : 0;
+    node->size_ = lsize + rsize + 1;
+  }
 }
 
 template <typename T>
@@ -152,7 +162,6 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
 
   // target node의 모든 Ancestor의 height를 update
   UpdateHeight(node);
-  node->size_ += 1;
 
   // get balance factor in specific node
   int left_height  = GetHeight(node->left_);

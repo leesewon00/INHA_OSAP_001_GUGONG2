@@ -70,3 +70,8 @@ TEST_F(SetTestFixture, IsEmptyEmptyCase) {
 TEST_F(SetTestFixture, IsEmptyNotEmptyCase) {
   ASSERT_EQ(false, set_t.IsEmpty());
 }
+
+// GetHeight 메소드 검증 : 루트가 null이 아닌 경우
+TEST_F(SetTestFixture, GetHeightValidRootCase) {
+  ASSERT_EQ(2, set_t.GetHeight());
+}

@@ -38,15 +38,24 @@ protected:
 
 public:
   SetTestFixture() : set_t(new AVLTree<int>()) {}
-
   // 각 테스트 실행 전 호출되어 set init
   void SetUp() override {
     //      3
     //     /  \
     //    2    4
-
     set_t.Insert(2);
     set_t.Insert(3);
     set_t.Insert(4);
   }
 };
+
+// GetSize 메소드 검증 : 루트가 null이 아닌 경우
+TEST_F(SetTestFixture, GetSizeValidRootCase) {
+  ASSERT_EQ(3, set_t.GetSize());
+}
+
+// GetSize 메소드 검증 : 루트가 null인 경우
+TEST_F(SetTestFixture, GetSizeInvalidRootCase) {
+  set_t = new AVLTree<int>();
+  ASSERT_EQ(-1, set_t.GetSize());
+}

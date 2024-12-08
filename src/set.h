@@ -29,13 +29,14 @@
 #ifndef SET_H
 #define SET_H
 
+#include <iostream>
 #include "avl_tree.h"
 #include "tree.h"
 
 template <typename T>
 class Set {
 private:
-  Tree<T>* tree;
+  std::unique_ptr<Tree<T>> tree;
 
 public:
   Set(Tree<T>* treeImpl) : tree(treeImpl) {}
@@ -50,9 +51,6 @@ public:
   void EraseNode(Node<T>* node, T target);
   // return pair<K, rank>
   std::pair<int, int> GetRank(T target);
-  ~Set() {
-    delete tree;
-  }
 };
 
 #endif  // SET_H

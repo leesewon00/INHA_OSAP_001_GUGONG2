@@ -26,3 +26,27 @@
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
 //     2024.12 GUGONG2
+
+#include <gtest/gtest.h>
+#include "../avl_tree.cpp"
+#include "../set.cpp"
+
+// SetTestFixture 클래스는 테스트를 위한 공통된 설정을 제공하는 Fixture
+class SetTestFixture : public ::testing::Test {
+protected:
+  Set<int> set_t;
+
+public:
+  SetTestFixture() : set_t(new AVLTree<int>()) {}
+
+  // 각 테스트 실행 전 호출되어 set init
+  void SetUp() override {
+    //      3
+    //     /  \
+    //    2    4
+
+    set_t.Insert(2);
+    set_t.Insert(3);
+    set_t.Insert(4);
+  }
+};

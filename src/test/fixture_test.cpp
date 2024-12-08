@@ -59,3 +59,14 @@ TEST_F(SetTestFixture, GetSizeInvalidRootCase) {
   set_t = new AVLTree<int>();
   ASSERT_EQ(-1, set_t.GetSize());
 }
+
+// IsEmpty 메소드 검증 : set이 비어있는 경우
+TEST_F(SetTestFixture, IsEmptyEmptyCase) {
+  set_t = new AVLTree<int>();
+  ASSERT_EQ(true, set_t.IsEmpty());
+}
+
+// IsEmpty 메소드 검증 : set이 비어있지 않은 경우
+TEST_F(SetTestFixture, IsEmptyNotEmptyCase) {
+  ASSERT_EQ(false, set_t.IsEmpty());
+}

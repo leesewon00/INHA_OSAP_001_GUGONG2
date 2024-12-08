@@ -75,3 +75,21 @@ TEST_F(SetTestFixture, IsEmptyNotEmptyCase) {
 TEST_F(SetTestFixture, GetHeightValidRootCase) {
   ASSERT_EQ(2, set_t.GetHeight());
 }
+
+// GetHeight 메소드 검증 : 루트가 null인 경우
+TEST_F(SetTestFixture, GetHeightTestInvalidRootCase) {
+  set_t = new AVLTree<int>();
+  ASSERT_EQ(-1, set_t.GetHeight());
+}
+
+// FindNode 메소드 검증 : set에 존재하는 Target 값이 들어올 때
+TEST_F(SetTestFixture, FindNodeValidTargetCase) {
+  int height = 2;
+  int depth  = 0;
+  ASSERT_EQ(height + depth, set_t.FindNode(2));
+}
+
+// FindNode 메소드 검증 : set 존재하지 않는 Target 값이 들어올 때
+TEST_F(SetTestFixture, FindNodeInvalidTargetCase) {
+  ASSERT_EQ(0, set_t.FindNode(-1));
+}

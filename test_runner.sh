@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./src/test/build/avl_tree_test
-./src/test/build/set_test
+./src/test/build/fixture_test
+./src/test/build/parameterized_test

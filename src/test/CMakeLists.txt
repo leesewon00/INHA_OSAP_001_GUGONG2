@@ -11,24 +11,14 @@ include_directories(${GTEST_INCLUDE_DIRS})
 # 헤더 파일 경로 추가
 include_directories(../)
 
-# AVL Tree 소스 파일 추가
-set(AVL_TREE_SRC
-    ../avl_tree.cpp
-)
+# fixture_test 실행 파일 추가
+add_executable(fixture_test fixture_test.cpp ${AVL_TREE_SRC})
+target_link_libraries(fixture_test GTest::GTest GTest::Main)
 
-# Set 소스 파일 추가
-set(SET_SRC
-    ../set.cpp
-)
-
-# AVL Tree 테스트 실행 파일 추가
-add_executable(avl_tree_test avl_tree_test.cpp ${AVL_TREE_SRC})
-target_link_libraries(avl_tree_test GTest::GTest GTest::Main)
-
-# Set 테스트 실행 파일 추가
-add_executable(set_test set_test.cpp ${SET_SRC})
-target_link_libraries(set_test GTest::GTest GTest::Main)
+# parameterized_test 실행 파일 추가
+add_executable(parameterized_test parameterized_test.cpp ${SET_SRC})
+target_link_libraries(parameterized_test GTest::GTest GTest::Main)
 
 # 테스트 등록
-add_test(NAME avl_tree_test COMMAND avl_tree_test)
-add_test(NAME set_test COMMAND set_test)
+add_test(NAME fixture_test COMMAND fixture_test)
+add_test(NAME parameterized_test COMMAND parameterized_test)

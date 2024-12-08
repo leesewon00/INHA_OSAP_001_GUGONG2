@@ -25,8 +25,4 @@
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //     OTHER DEALINGS IN THE SOFTWARE.
 //
-//     2024.11 GUGONG2
-
-#include "../avl_tree.h"
-
-#include <gtest/gtest.h>
+//     2024.12 GUGONG2

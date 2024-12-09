@@ -93,3 +93,13 @@ TEST_F(SetTestFixture, FindNodeValidTargetCase) {
 TEST_F(SetTestFixture, FindNodeInvalidTargetCase) {
   ASSERT_EQ(0, set_t.FindNode(-1));
 }
+
+// GetAverage 메소드 검증 : set에 존재하는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetAverageValidTargetCase) {
+  ASSERT_EQ(3, set_t.GetAverage(3));
+}
+
+// GetAverage 메소드 검증 : set에 존재하지 않는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetAverageInvalidTargetCase) {
+  ASSERT_EQ(-1, set_t.GetAverage(-1));
+}

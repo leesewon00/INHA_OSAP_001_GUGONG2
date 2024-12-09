@@ -75,7 +75,7 @@ public:
   Node<T>* GetMax(Node<T>* node);
   // node를 root로 가지는 트리에서 노드들의 key 값의 최솟값(a)와 최댓값(b)의
   // 산술평균((a + b)/2) 을 출력
-  double GetAverage(Node<T>* node);
+  int GetAverage(Node<T>* node);
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합,
   // 순위(rank)를 공백으로 구분하여 출력
   std::pair<int, int> GetRank(Node<T>* node, T target);

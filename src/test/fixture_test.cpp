@@ -103,3 +103,19 @@ TEST_F(SetTestFixture, GetAverageValidTargetCase) {
 TEST_F(SetTestFixture, GetAverageInvalidTargetCase) {
   ASSERT_EQ(-1, set_t.GetAverage(-1));
 }
+
+// GetAncestor 메소드 검증 : set에 존재하는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetAncestorValidTargetCase) {
+  std::pair<int, int> returnValue = set_t.GetAncestor(2);
+  ASSERT_EQ(std::make_pair(2, 3), returnValue);
+}
+
+// GetAncestor 메소드 검증 : root 값이 들어온 경우
+TEST_F(SetTestFixture, GetAncestorRootTargetCase) {
+  ASSERT_EQ(std::make_pair(2, 0), set_t.GetAncestor(3));
+}
+
+// GetAncestor 메소드 검증 : set에 존재하지 않는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetAncestorInvalidTargetCase) {
+  ASSERT_EQ(std::make_pair(-1, -1), set_t.GetAncestor(-1));
+}

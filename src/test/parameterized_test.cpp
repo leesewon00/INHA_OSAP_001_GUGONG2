@@ -67,3 +67,36 @@ TEST_P(SetTestFixture, FindNodeParamSet) {
   int is_inside = set_t.FindNode(param);
   ASSERT_EQ(expected_value, is_inside);
 }
+
+// SetTestFixture 클래스는 <int,pair<int,int>> 형태의 파라미터 테스트를 위한
+// 공통된 설정을 제공하는 Fixture
+class GetRankTestFixture
+  : public ::testing::TestWithParam<std::tuple<int, std::pair<int, int>>> {
+protected:
+  Set<int> set_t;
+
+public:
+  GetRankTestFixture() : set_t(new AVLTree<int>()) {}
+  void SetUp() override {
+    set_t.Insert(2);
+    set_t.Insert(3);
+    set_t.Insert(4);
+  }
+};
+// 테스트 오라클
+INSTANTIATE_TEST_CASE_P(
+    GetRankParamSet, GetRankTestFixture,
+    testing::Values(std::make_tuple(2, std::make_pair(2, 1)),
+                    std::make_tuple(3, std::make_pair(2, 2)),
+                    std::make_tuple(4, std::make_pair(2, 3)),
+                    std::make_tuple(5, std::make_pair(-1, -1))));
+
+TEST_P(GetRankTestFixture, GetRankParamSet) {
+  std::tuple<int, std::pair<int, int>> tuple = GetParam();
+
+  int param                          = std::get<0>(tuple);
+  std::pair<int, int> expected_value = std::get<1>(tuple);
+
+  auto KandRank = set_t.GetRank(param);
+  ASSERT_EQ(expected_value, KandRank);
+}

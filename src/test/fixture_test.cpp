@@ -119,3 +119,13 @@ TEST_F(SetTestFixture, GetAncestorRootTargetCase) {
 TEST_F(SetTestFixture, GetAncestorInvalidTargetCase) {
   ASSERT_EQ(std::make_pair(-1, -1), set_t.GetAncestor(-1));
 }
+
+// GetRank 메소드 검증 : set에 존재하는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetRankValidTargetCase) {
+  ASSERT_EQ(std::make_pair(2, 3), set_t.GetRank(4));
+}
+
+// GetRank 메소드 검증 : set에 존재하지 않는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetRankInvalidTargetCase) {
+  ASSERT_EQ(std::make_pair(-1, -1), set_t.GetRank(100));
+}

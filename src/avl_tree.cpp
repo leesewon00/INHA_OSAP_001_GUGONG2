@@ -95,10 +95,12 @@ Node<T>* AVLTree<T>::FindNode(Node<T>* node, T target) {
   return nullptr;  // 찾지 못한 경우 nullptr 반환
 }
 
+// a와 b 중 더 큰 값을 return
 template <typename T>
 T AVLTree<T>::Max(T a, T b) {
   return (a > b) ? a : b;
 }
+
 
 template <typename T>
 void AVLTree<T>::UpdateHeight(Node<T>* node) {
@@ -188,6 +190,7 @@ Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
   return node;
 }
 
+// 트리에 target 노드를 추가
 template <typename T>
 int AVLTree<T>::Insert(T target) {
   root_ = InsertNode(root_, target);
@@ -224,6 +227,7 @@ std::pair<int, int> AVLTree<T>::GetAncestor(Node<T>* node, T target) {
   return std::make_pair(K, key_sum);
 }
 
+// node를 root로 가지는 트리에서 가장 작은 값을 return
 template <typename T>
 Node<T>* AVLTree<T>::GetMin(Node<T>* node) {
   while (node != nullptr && node->left_ != nullptr) {
@@ -232,6 +236,7 @@ Node<T>* AVLTree<T>::GetMin(Node<T>* node) {
   return node;
 }
 
+// node를 root로 가지는 트리에서 가장 큰 값을 return
 template <typename T>
 Node<T>* AVLTree<T>::GetMax(Node<T>* node) {
   while (node != nullptr && node->right_ != nullptr) {
@@ -240,6 +245,7 @@ Node<T>* AVLTree<T>::GetMax(Node<T>* node) {
   return node;
 }
 
+// node를 root로 가지는 트리에서 최고값과 최솟값의 산술평균 리턴
 template <typename T>
 int AVLTree<T>::GetAverage(Node<T>* node) {
   Node<T>* min_node = GetMin(node);
@@ -252,11 +258,13 @@ int AVLTree<T>::GetAverage(Node<T>* node) {
   return average;
 }
 
+// 전체 트리의 root리턴
 template <typename T>
 Node<T>* AVLTree<T>::getRoot() {
   return root_;
 }
 
+// node를 root로 가지는 트리에서 target 노드를 제거
 template <typename T>
 Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
   // initial node must be root.
@@ -318,6 +326,7 @@ Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
   return node;
 }
 
+// node를 root로 가지는 트리에서 target 값의 height + depth 와 rank 리턴
 template <typename T>
 std::pair<int, int> AVLTree<T>::GetRank(Node<T>* node, T target) {
   int depth        = 0;

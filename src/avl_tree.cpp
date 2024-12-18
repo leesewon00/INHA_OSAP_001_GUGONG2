@@ -252,7 +252,7 @@ int AVLTree<T>::GetAverage(Node<T>* node) {
 
   T min_key   = min_node->key_;
   T max_key   = max_node->key_;
-  int average = (min_key + max_key) / 2.0;
+  int average = (min_key + max_key) / 2;
 
   return average;
 }
@@ -306,7 +306,6 @@ Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
   if (node == nullptr) {
     return node;
   }
-
   UpdateHeight(node);
 
   int bf = getBf(node);
@@ -320,7 +319,6 @@ Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
     node->right_ = RightRotate(node->right_);
     return LeftRotate(node);
   }
-
   return node;
 }
 // balanced factor 계산 로직

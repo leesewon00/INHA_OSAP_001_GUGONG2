@@ -82,6 +82,7 @@ public:
   // node를 root로 가지는 트리에서 target 노드의 깊이와 높이의 합을 출력하고
   // 해당 노드를 삭제
   Node<T>* EraseNode(Node<T>* node, T target);
+  // AVLTree Erase, return Height + Depth
   int Erase(T target);
   // balanced factor 계산
   int getBf(Node<T>* node);

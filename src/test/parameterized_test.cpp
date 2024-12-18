@@ -100,3 +100,66 @@ TEST_P(GetRankTestFixture, GetRankParamSet) {
   auto KandRank = set_t.GetRank(param);
   ASSERT_EQ(expected_value, KandRank);
 }
+
+// Insert Test를 위한 Fixture
+class InsertTestFixture
+  : public ::testing::TestWithParam<std::tuple<int, int>> {
+protected:
+  Set<int> set_t;
+
+public:
+  InsertTestFixture() : set_t(new AVLTree<int>()) {}
+
+  // 각 테스트 실행 전 호출되어 set init
+  void SetUp() override {
+    set_t.Insert(2);
+    set_t.Insert(3);
+    set_t.Insert(4);
+  }
+};
+
+// INSERT 테스트 오라클
+INSTANTIATE_TEST_CASE_P(GetInsertParamSet, InsertTestFixture,
+                        testing::Values(std::make_tuple(5, 3),
+                                        std::make_tuple(6, 3),
+                                        std::make_tuple(7, 3)));
+TEST_P(InsertTestFixture, GetInsertParamSet) {
+  std::tuple<int, int> tuple = GetParam();
+
+  int param          = std::get<0>(tuple);
+  int expected_value = std::get<1>(tuple);
+
+  int InsertValue = set_t.Insert(param);
+  ASSERT_EQ(expected_value, InsertValue);
+}
+
+// Erase Test를 위한 Fixture
+class EraseTestFixture : public ::testing::TestWithParam<std::tuple<int, int>> {
+protected:
+  Set<int> set_t;
+
+public:
+  EraseTestFixture() : set_t(new AVLTree<int>()) {}
+
+  // 각 테스트 실행 전 호출되어 set init
+  void SetUp() override {
+    set_t.Insert(2);
+    set_t.Insert(3);
+    set_t.Insert(4);
+  }
+};
+
+// Erase 테스트 오라클
+INSTANTIATE_TEST_CASE_P(GetEraseParamSet, EraseTestFixture,
+                        testing::Values(std::make_tuple(4, 2),
+                                        std::make_tuple(3, 2),
+                                        std::make_tuple(5, 0)));
+TEST_P(EraseTestFixture, GetEraseParamSet) {
+  std::tuple<int, int> tuple = GetParam();
+
+  int param          = std::get<0>(tuple);
+  int expected_value = std::get<1>(tuple);
+
+  int EraseValue = set_t.Erase(param);
+  ASSERT_EQ(expected_value, EraseValue);
+}

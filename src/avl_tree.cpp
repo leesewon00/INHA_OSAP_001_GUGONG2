@@ -100,9 +100,11 @@ template <typename T>
 T AVLTree<T>::Max(T a, T b) {
   return (a > b) ? a : b;
 }
-
+// 특정 노드의 Left-child subtree, Right-child subtree의 Height를 기준으로
+// Height update
 template <typename T>
 void AVLTree<T>::UpdateHeight(Node<T>* node) {
+  // GetHeight의 기본값이 -1일 경우 0으로 치환
   int left_height  = GetHeight(node->left_);
   left_height      = (left_height == -1) ? 0 : left_height;
   int right_height = GetHeight(node->right_);
@@ -110,17 +112,19 @@ void AVLTree<T>::UpdateHeight(Node<T>* node) {
   // height update
   node->height_ = 1 + Max(left_height, right_height);
 
+  // Height가 1인경우는 Leaf node. node 초기화
   if (node->height_ == 1) {
     node->left_  = nullptr;
     node->right_ = nullptr;
     node->size_  = 1;
   } else {
+    // Node에 해당 node를 root로 하는 Subtree의 Size 정보가 있으므로 갱신
     int lsize   = (node->left_ != nullptr) ? node->left_->size_ : 0;
     int rsize   = (node->right_ != nullptr) ? node->right_->size_ : 0;
     node->size_ = lsize + rsize + 1;
   }
 }
-
+// 균형을 유지하기 위한 Right Rotate
 template <typename T>
 Node<T>* AVLTree<T>::RightRotate(Node<T>* node) {
   Node<T>* left_child       = node->left_;
@@ -135,6 +139,7 @@ Node<T>* AVLTree<T>::RightRotate(Node<T>* node) {
   return left_child;
 }
 
+// 균형을 유지하기 위한 Left Rotate
 template <typename T>
 Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
   Node<T>* right_child      = node->right_;
@@ -149,6 +154,7 @@ Node<T>* AVLTree<T>::LeftRotate(Node<T>* node) {
   return right_child;
 }
 
+// 실제로 AVLtree에 Insert하는 로직
 template <typename T>
 Node<T>* AVLTree<T>::InsertNode(Node<T>* node, T target) {
   // 노드가 자기 자리를 찾았을 경우
@@ -271,7 +277,6 @@ int AVLTree<T>::Erase(T target) {
   else {
     int ret = GetDepth(root_, target) + FindNode(root_, target)->height_;
     root_   = EraseNode(root_, target);
-    // if (root_ != nullptr) std::cout << "root : " << root_->key_ << endl;
     return ret;
   }
 }
@@ -279,12 +284,15 @@ int AVLTree<T>::Erase(T target) {
 // node를 root로 가지는 트리에서 target 노드를 제거
 template <typename T>
 Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
+  // Node를 찾지 못하는 경우 nullptr return
   if (node == nullptr) return node;
+  // BST order에 따라 Node 찾음
   if (target < node->key_)
     node->left_ = EraseNode(node->left_, target);
   else if (target > node->key_)
     node->right_ = EraseNode(node->right_, target);
   else {
+    // Erase logic
     if (node->left_ == nullptr || node->right_ == nullptr) {
       Node<T>* tmp = node->left_ ? node->left_ : node->right_;
       if (tmp == nullptr) {
@@ -306,9 +314,12 @@ Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
   if (node == nullptr) {
     return node;
   }
+  // 모든 Ancestor에 대해 Height update
   UpdateHeight(node);
 
+  // 균형을 검사하기 위한 Balance Factor 계산
   int bf = getBf(node);
+
   if (bf > 1 && getBf(node->left_) >= 0) return RightRotate(node);
   if (bf > 1 && getBf(node->left_) < 0) {
     node->left_ = LeftRotate(node->left_);

@@ -72,7 +72,9 @@ double Set<T>::GetAverage(T target) {
 }
 
 template <typename T>
-void EraseNode(Node<T>* node, T target) {}
+int Set<T>::Erase(T target) {
+  return tree->Erase(target);
+}
 
 template <typename T>
 std::pair<int, int> Set<T>::GetRank(T target) {

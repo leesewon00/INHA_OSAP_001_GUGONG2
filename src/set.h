@@ -47,7 +47,7 @@ public:
   int Insert(T target);
   // return pair<K , key_sum>
   std::pair<int, int> GetAncestor(T target);
-  double GetAverage(T target);
+  int GetAverage(T target);
   int Erase(T target);
   // return pair<K, rank>
   std::pair<int, int> GetRank(T target);

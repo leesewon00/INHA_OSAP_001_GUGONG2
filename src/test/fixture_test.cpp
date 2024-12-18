@@ -129,3 +129,32 @@ TEST_F(SetTestFixture, GetRankValidTargetCase) {
 TEST_F(SetTestFixture, GetRankInvalidTargetCase) {
   ASSERT_EQ(std::make_pair(-1, -1), set_t.GetRank(100));
 }
+
+// Insert 메소드 검증 : set에 존재하지 않는 Target 값이 들어올 때
+TEST_F(SetTestFixture, GetInsertValidTargetCase) {
+  ASSERT_EQ(3, set_t.Insert(5));
+  ASSERT_EQ(3, set_t.Insert(6));
+  ASSERT_EQ(3, set_t.Insert(7));
+}
+
+// Insert 메소드 검증 :
+// set에 존재하지 않는 Target 값이 들어올 때 다른 노드의 Height, Depth 변화
+TEST_F(SetTestFixture, GetInsertCheckHeightDepthCase) {
+  set_t.Insert(5);
+  set_t.Insert(6);
+  set_t.Insert(7);
+  ASSERT_EQ(3, set_t.FindNode(5));
+  ASSERT_EQ(3, set_t.FindNode(4));
+  ASSERT_EQ(3, set_t.FindNode(3));
+}
+
+// Erase 메소드 검증 : set에 존재하는 Target 값이 들어올 경우
+TEST_F(SetTestFixture, GetEraseValidTargetCase) {
+  ASSERT_EQ(2, set_t.Erase(4));
+  ASSERT_EQ(2, set_t.Erase(3));
+}
+
+// Erase 메소드 검증 : set에 존재하지 않는 Target 값이 들어올 경우
+TEST_F(SetTestFixture, GetEraseInvalidTargetCase) {
+  ASSERT_EQ(0, set_t.Erase(5));
+}

@@ -15,7 +15,7 @@ public:
   virtual int Insert(T target)                                     = 0;
   virtual std::pair<int, int> GetAncestor(Node<T>* node, T target) = 0;
   virtual int GetAverage(Node<T>* node)                            = 0;
-  virtual Node<T>* EraseNode(Node<T>* node, T target)              = 0;
+  virtual int Erase(T target)                                      = 0;
   virtual std::pair<int, int> GetRank(Node<T>* node, T target)     = 0;
   virtual Node<T>* getRoot()                                       = 0;
   virtual ~Tree()                                                  = default;

@@ -48,7 +48,7 @@ public:
   // return pair<K , key_sum>
   std::pair<int, int> GetAncestor(T target);
   double GetAverage(T target);
-  void EraseNode(Node<T>* node, T target);
+  int Erase(T target);
   // return pair<K, rank>
   std::pair<int, int> GetRank(T target);
 };

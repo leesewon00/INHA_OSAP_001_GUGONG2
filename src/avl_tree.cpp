@@ -101,7 +101,6 @@ T AVLTree<T>::Max(T a, T b) {
   return (a > b) ? a : b;
 }
 
-
 template <typename T>
 void AVLTree<T>::UpdateHeight(Node<T>* node) {
   int left_height  = GetHeight(node->left_);
@@ -263,67 +262,74 @@ template <typename T>
 Node<T>* AVLTree<T>::getRoot() {
   return root_;
 }
+// 문제 조건에 맞추기 위한 Erase
+template <typename T>
+int AVLTree<T>::Erase(T target) {
+  Node<T>* node = FindNode(root_, target);
+  if (node == nullptr)
+    return 0;
+  else {
+    int ret = GetDepth(root_, target) + FindNode(root_, target)->height_;
+    root_   = EraseNode(root_, target);
+    // if (root_ != nullptr) std::cout << "root : " << root_->key_ << endl;
+    return ret;
+  }
+}
 
 // node를 root로 가지는 트리에서 target 노드를 제거
 template <typename T>
 Node<T>* AVLTree<T>::EraseNode(Node<T>* node, T target) {
-  // initial node must be root.
-  if (node->key_ > target && node->left_ != nullptr) {
+  if (node == nullptr) return node;
+  if (target < node->key_)
     node->left_ = EraseNode(node->left_, target);
-  } else if (node->key_ < target && node->right_ != nullptr) {
+  else if (target > node->key_)
     node->right_ = EraseNode(node->right_, target);
-  } else if (node->key_ == target) {
-    Node<T>* cur_node = node;
-    if (node->left_ == nullptr) {
-      node = node->right_;
-    } else if (node->right_ == nullptr) {
-      node = node->left_;
-    } else {
-      Node<T>* right_node        = node->right_;
-      Node<T>* parent_right_node = node;
-
-      while (right_node->left_ != nullptr) {
-        parent_right_node = right_node;
-        right_node        = right_node->left_;
-      }
-
-      node->key_ = right_node->key_;
-
-      if (parent_right_node == node) {
-        node->right_ = right_node->right_;
+  else {
+    if (node->left_ == nullptr || node->right_ == nullptr) {
+      Node<T>* tmp = node->left_ ? node->left_ : node->right_;
+      if (tmp == nullptr) {
+        tmp  = node;
+        node = nullptr;
       } else {
-        parent_right_node->left_ = right_node->right_;
+        *node = *tmp;
       }
-      cur_node = right_node;
+      delete tmp;
+    } else {
+      Node<T>* cur = node->right_;
+      while (cur->left_ != nullptr) {
+        cur = cur->left_;
+      }
+      node->key_   = cur->key_;
+      node->right_ = EraseNode(node->right_, cur->key_);
     }
-    delete cur_node;
   }
-  if (node != nullptr) {
-    int left_height  = GetHeight(node->left_);
-    left_height      = (left_height == -1) ? 0 : left_height;
-    int right_height = GetHeight(node->right_);
-    right_height     = (right_height == -1) ? 0 : right_height;
-    node->height_    = Max(left_height, right_height) + 1;
-    int bf           = left_height - right_height;
+  if (node == nullptr) {
+    return node;
+  }
 
-    // LL case
-    if (bf > 1 && target < node->left_->key_) {
-      node = RightRotate(node);
-    }  // RR case
-    if (bf < -1 && target > node->right_->key_) {
-      node = LeftRotate(node);
-    }  // LR case
-    if (bf > 1 && target > node->left_->key_) {
-      node->left_ = LeftRotate(node->left_);
-      node        = RightRotate(node);
-    }  // RL case
-    if (bf < -1 && target < node->right_->key_) {
-      node->right_ = RightRotate(node->right_);
-      node         = LeftRotate(node);
-    }
+  UpdateHeight(node);
+
+  int bf = getBf(node);
+  if (bf > 1 && getBf(node->left_) >= 0) return RightRotate(node);
+  if (bf > 1 && getBf(node->left_) < 0) {
+    node->left_ = LeftRotate(node->left_);
+    return RightRotate(node);
+  }
+  if (bf < -1 && getBf(node->right_) <= 0) return LeftRotate(node);
+  if (bf < -1 && getBf(node->right_) > 0) {
+    node->right_ = RightRotate(node->right_);
+    return LeftRotate(node);
   }
 
   return node;
+}
+// balanced factor 계산 로직
+template <typename T>
+int AVLTree<T>::getBf(Node<T>* node) {
+  if (node == nullptr) return 0;
+  int lh = node->left_ != nullptr ? node->left_->height_ : 0;
+  int rh = node->right_ != nullptr ? node->right_->height_ : 0;
+  return lh - rh;
 }
 
 // node를 root로 가지는 트리에서 target 값의 height + depth 와 rank 리턴
